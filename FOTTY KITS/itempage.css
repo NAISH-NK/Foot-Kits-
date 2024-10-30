@@ -1,0 +1,229 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    ;
+    
+}
+
+/* general Styles */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+    justify-content: center;  
+    min-height: 100vh;
+    font-family: Arial, sans-serif;  
+    background-color: #f4f4f9;  
+    color: #333; 
+}
+
+h7 {
+    color: #f5f3f7;
+    background-color: #333; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 30px;  
+    width: 100%;  
+    max-width: none;  
+    border-radius: 0;  
+    position: relative;
+}
+
+/* navigation Bar */
+nav {
+    background-color: #333;  
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 30px;  
+    width: 100%; 
+    max-width: none;  
+    border-radius: 0; 
+    position: relative;
+}
+
+/* horizontal Navigation */
+.horizontal-nav {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;  
+}
+
+.horizontal-nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.horizontal-nav ul li {
+    margin: 0 15px;
+}
+
+.horizontal-nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+}
+
+.horizontal-nav ul li a.active,
+.horizontal-nav ul li a:hover {
+    background: linear-gradient(to bottom right, #3333cc 25%, #6600cc 60%);
+    border-radius: 4px;
+}
+
+/* hamburger Menu Icon (Sandwich Icon) */
+.sandwich-icon-area {
+    cursor: pointer;
+    font-size: 32px;
+    color: white;
+    display: block;  
+}
+
+.sandwich-icon-area span {
+    margin-left: 10px;
+    font-size: 1em;
+    color: white;
+}
+
+/* overlay Menu */
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.95);
+    overflow-x: hidden;
+    transition: width 0.5s ease;  
+}
+
+.overlay-content {
+    position: relative;
+    top: 25%;
+    text-align: center;
+}
+
+.overlay-content a {
+    display: block;
+    color: #ccc;  
+    text-decoration: none;
+    font-size: 30px;
+    padding: 15px;
+    transition: color 0.3s ease;
+}
+
+.overlay-content a:hover {
+    color: #fff;  
+}
+
+/* close Icon */
+.close-icon {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 50px;
+    cursor: pointer;
+    color: rgb(250, 248, 248);
+}
+
+/* responsive Styles */
+@media (max-width: 768px) {
+    .horizontal-nav {
+        display: none;  
+    }
+
+    .overlay-content a {
+        font-size: 24px;  
+    }
+}
+
+/* footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    position: relative;
+}
+
+/* item Page Styles */
+main {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px; 
+    margin: 20px auto;
+    text-align: center; / 
+}
+
+.item-detail-section h2 {
+    font-size: 24px;
+    color: #3333cc;  
+    margin-bottom: 15px;
+}
+
+.item-card {
+    text-align: left;  
+}
+
+.item-card h4 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.item-card img {
+    width: 100%;
+    max-width: 400px;  
+    border-radius: 10px;
+    border: 5px solid #6600cc;
+    margin: 10px auto;  
+    display: block;  
+}
+
+.item-price {
+    font-size: 22px;
+    color: #000000 !important;  
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+
+
+.comments-section {
+    text-align: left;
+    margin-top: 20px;
+    background-color: #f4f4f9;
+    padding: 50px;
+    border-radius: 8px;
+}
+
+.comment-input, .comment-textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.post-comment-btn {
+    background-color: #3333cc;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.post-comment-btn:hover {
+    background-color: linear-gradient(to bottom right, #3333cc 25%, #6600cc 60%);
+}

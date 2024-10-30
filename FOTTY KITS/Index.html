@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="styles.css">
+    
+
+
+</head>
+<body>
+
+    <nav>
+       
+        <!-- Horizontal navbar -->
+        <div class="horizontal-nav">
+            <ul>
+                <li><a class="active" href="index.html">HOME</a></li>
+                <li><a href="LaLiga.html">LALIGA</a></li>
+                <li><a href="Prem.html">PREM</a></li>
+                <li><a href="Bundesliga.html">BUNDESLIGA</a></li>
+                <li><a href="International.html">INTERNATIONAL</a></li>
+            </ul>
+            
+        </div>
+
+        <!-- hamburger icon -->
+        <div class="sandwich-icon-area" onclick="openNav()">
+            &#9776;
+        </div>
+    </nav>
+
+    <!--dropdown menu-->
+    <div id="myNav" class="overlay">
+        <span class="close-icon" onclick="closeNav()">&times;</span>
+        <div class="overlay-content">
+            <a href="index.html">HOME</a>
+            <a href="LaLiga.html">LALIGA</a>
+            <a href="Prem.html">PREM</a>
+            <a href="Bundesliga.html">BUNDESLIGA</a>
+            <a href="International.html">INTERNATIONAL</a>
+        </div>
+    </div>
+
+    <script>
+        // open the overlay menu
+        function openNav() {
+            document.getElementById("myNav").style.width = "80%";
+        }
+
+        // close the overlay menu
+        function closeNav() {
+            document.getElementById("myNav").style.width = "0%";
+        }
+    </script>
+
+    <!-- Header area -->
+    <header>
+        <h1>Welcome To<br> Footy Kits</h1>
+    </header>
+    <br>
+    <br>
+
+    <!--logo-->
+    <main id="mainArea">
+        <div class="logo">
+            <a href="index.html">
+                <img src="Images/footykits logo.webp" alt="FOOTY KITS Logo" style="max-width: 100px; height: auto;">
+            </a>
+            
+        </div>
+        
+        <div class="container">
+            <img src="Images/5.jpg">
+            <img src="Images/9.jpg">
+            <img src="Images/2.jpg">
+            <img src="Images/4.jpg">
+            <img src="Images/3.jpg">
+            <img src="Images/7.jpg">
+            <img src="Images/6.jpg">
+            
+
+
+        </div>
+
+
+
+        <div id="slideshow">
+            <h4 id="slide-title">Argentina</h4>
+            <img id="slide-image" src="MEDIA/ARG1.jpg" alt="KITS">
+        </div>
+
+        <script>
+            
+            let topMovies = [
+                {id: 0, title: "Argentina", year: 2024, img_url: "Images/4.jpg"}, 
+                {id: 1, title: "FC Barcelona", year: 2024, img_url: "Images/5.jpg"}, 
+                {id: 2, title: "Arsenal F.C.", year: 2024, img_url: "Images/2.jpg"}, 
+                {id: 3, title: "Liverpool F.C.", year: 2024, img_url: "Images/3.jpg"}
+                
+            ];
+
+            //  slideshow  
+            let slideshowIndex = 0;
+            function autoSlideshow() {
+                slideshowIndex = (slideshowIndex + 1) % topMovies.length;
+                document.getElementById('slide-title').innerHTML = topMovies[slideshowIndex].title;
+                document.getElementById('slide-image').src = topMovies[slideshowIndex].img_url;
+                setTimeout(autoSlideshow, 2000);
+            }
+            autoSlideshow();
+        </script>
+        <br>
+        
+        <br>
+        <p>At <strong>FOOTY KITS</strong>, we make it easier for football fans around the world to purchase kits from all major teams. <br> What sets us apart is our extensive selection of kits available in one convenient location, all at prices that are more affordable than the original sites.</p>
+        <br>
+        <p>No more wasting time browsing multiple platforms to find your favorite team’s kit. <br>With <strong>FOOTY KITS</strong>, you can discover a wide variety of jerseys and merchandise from all your favorite teams, all under one roof.</p>
+        <br>
+        <p>Join us in celebrating your passion for football while enjoying great savings.<br>Express your love for the game with <strong>FOOTY KITS</strong> today!</p>
+        <br>
+        <p style="color: #cc00ff;"><strong>!THIS WEBSITE WAS MADE FOR ACADEMIC PURPOSE</strong></p>
+
+    </main>
+    <br>
+    <br>
+
+    <!-- Footer area -->
+    <footer>
+        <p><strong>FOOTY KITS</strong></p>
+    <br>
+        <p>Phone: <a href="tel:+64 2209304">+64 0420691234</a></p> 
+        <p>Email: <a href="mailto:footykits@gmail.com">footykits@gmail.com</a></p> 
+        
+    </footer>
+
+</body>
+</html>
+
+<script>
+    
+    function openNav() {
+        document.getElementById("myNav").style.width = "80%"; 
+    }
+
+    // close the overlay menu
+    function closeNav() {
+        document.getElementById("myNav").style.width = "0%";
+    }
+</script>

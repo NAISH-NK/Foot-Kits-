@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LALIGA</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    
+
+    <!-- navigation bar with hamburger icon and logo -->
+    <nav>
+
+        
+        <!-- horizontal navbar -->
+        <div class="horizontal-nav">
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a class="active" href="LaLiga.html">LALIGA</a></li>
+                <li><a href="Prem.html">PREM</a></li>
+                <li><a href="Bundesliga.html">BUNDESLIGA</a></li>
+                <li><a href="International.html">INTERNATIONAL</a></li>
+            </ul>
+        </div>
+        
+
+        <!-- hamburger icon -->
+        <div class="sandwich-icon-area" onclick="openNav()">&#9776;</div>
+
+        
+    </nav>
+
+    <!-- the overlay dropdown menu for mobile view -->
+    <div id="myNav" class="overlay">
+        <span class="close-icon" onclick="closeNav()">&times;</span>
+        <div class="overlay-content">
+            <a href="index.html">HOME</a>
+            <a href="LaLiga.html">LALIGA</a>
+            <a href="Prem.html">PREM</a>
+            <a href="Bundesliga.html">BUNDESLIGA</a>
+            <a href="International.html">INTERNATIONAL</a>
+        </div>
+    </div>
+
+    <script>
+         
+        function openNav() {
+            document.getElementById("myNav").style.width = "80%";
+        }
+
+         
+        function closeNav() {
+            document.getElementById("myNav").style.width = "0%";
+        }
+    </script>
+
+    <!-- header area -->
+    <header>
+        <h1>Welcome To<br>LALIGA</h1>
+    </header>
+
+    <!-- main area -->
+    <main id="mainArea">
+
+        
+        <h2><span onclick="toggleCart()" style='font-size: 35px;margin-left: 85vw;'>&#128722;</span></h2>        
+        <div id="shopping-cart">
+            <p style="font-weight: bold;">TOTAL: $<span id="totalPrice">0.0</span></p>
+            <table id="itemTable">                
+                <tr>
+                    <th style="width:50%">Item</th>
+                    <th style="width:10%">Quantity</th>
+                    <th style="width:20%">Price</th>
+                    <th style="width:30%">Action</th>
+                  </tr>
+            </table>
+        </div>
+
+        <div class="logo">
+            <a href="LaLiga.html">
+                <img src="Images/LALIGA LOGO.jpg" alt="FOOTY KITS Logo" style="max-width: 100px; height: auto;">
+            </a>
+        </div>
+        <br><br>
+
+
+        <br>
+        <label>Search:</label>
+        <input type="text" id="searchInput" onchange="displayFilteredItems()">   
+        <br><br>
+
+        <label>SORT BY</label>
+<div style="display: flex; gap: 10px; align-items: center;">
+    <button style="padding: 5px;" onclick="sortByPrice()">PRICE</button>
+    <button style="padding: 5px;" onclick="sortByYear()">YEAR</button>
+    <button style="padding: 5px;" onclick="sortByTitle()">TITLE</button>
+</div>
+
+        <br><br>
+        <label>CATEGORY: </label> 
+        <select style="padding: 5px;" id="categoryID" onchange="sortByCategory()"></select>
+      
+        <div id="itemList"></div>
+
+        <script src="LaLiga.js"></script>    
+        <script>
+            // function to display all items
+            function displayAllItems(itemList) {
+                let allItems = "";
+                for (let i = 0; i < itemList.length; i++) {
+                    let item = '<div class="item-card">'                                
+                                +    '<h4 style="white-space: nowrap; overflow: hidden; text-overflow: clip;" >' + itemList[i].title + '</h4>'
+                                +    '<p>Year: ' + itemList[i].year + '</p>'
+                                +    '<p>Category: ' + categories.find(category => category.id == itemList[i].category).category + '</p>'
+                                +    '<img src=' + itemList[i].image_url + ' height="150" onclick="showItem(' + itemList[i].id.toString() + ')">'
+                                +    '<h3 style=>Price: $' + itemList[i].price + '</h3>'
+                                +    '<button onclick="addToCart(' + itemList[i].id + ')"> ADD TO CART </button>'
+                                + '</div>' ;
+                    allItems += item;
+                }
+                return allItems;
+            }
+
+            // display items on page load
+            document.getElementById("itemList").innerHTML = displayAllItems(items);
+
+            // show specific item
+            function showItem(i) {
+                localStorage.setItem('danielItemID', i);
+                window.open("LaLigaItempage.html");
+            }
+
+            // filter items by search keyword
+            function displayFilteredItems() {
+                let keyword = document.getElementById("searchInput").value.toLowerCase();
+                let filteredItems = items.filter(item => item.title.toLowerCase().includes(keyword));
+                document.getElementById("itemList").innerHTML = displayAllItems(filteredItems);
+            }
+
+            // sorting functions
+            function sortByPrice() {
+                let sortedItems = items.sort((item1, item2) => (item1.price < item2.price) ? 1 : -1);
+                document.getElementById("itemList").innerHTML = displayAllItems(sortedItems);
+            }
+
+            function sortByYear() {
+                let sortedItems = items.sort((item1, item2) => (item1.year < item2.year) ? 1 : -1);
+                document.getElementById("itemList").innerHTML = displayAllItems(sortedItems);
+            }
+
+            function sortByTitle() {
+                let sortedItems = items.sort((item1, item2) => (item1.title > item2.title) ? 1 : -1);
+                document.getElementById("itemList").innerHTML = displayAllItems(sortedItems);
+            }
+
+            // load categories into dropdown
+            function loadCategories(categoryArray, selectMenu) {
+                selectMenu.innerHTML = "";
+                for (let i = 0; i < categoryArray.length; i++) {
+                    let newOption = document.createElement("option");
+                    newOption.text = categoryArray[i].category;
+                    newOption.value = categoryArray[i].id.toString();
+                    selectMenu.appendChild(newOption);
+                }
+                document.getElementById("categoryID").selectedIndex = "0";
+            }
+            loadCategories(categories, document.getElementById("categoryID"));
+
+            // filter items by category
+            function sortByCategory() {
+                let selectedCategoryID = document.getElementById("categoryID").value;
+                let filteredItems = items.filter(item => item.category == selectedCategoryID);
+                document.getElementById("itemList").innerHTML = displayAllItems(filteredItems);
+            }
+        </script>
+
+        <script>
+            //------------------------------------------------------
+            //toggle the shopping cart (open/hide) when clicking on the icon "cart"
+            let cartStatus = 'close';
+            function toggleCart() {
+                if (cartStatus == 'close') {
+                    //show the shopping cart div and change the cartStatus to 'open'
+                    document.getElementById("shopping-cart").style.display = 'block';
+                    cartStatus = 'open';
+                } else {
+                    //hide the shopping cart div and change the cartStatus to 'close'
+                    document.getElementById("shopping-cart").style.display = 'none';
+                    cartStatus = 'close';                   
+                }
+            }
+
+            //------------------------------------------------------
+            //DISPLAY ALL ITEMS IN THE CART            
+            let itemInCart = [];
+            let totalPrice = 0.0;
+            //
+            function displayCart() {
+                //--------------------  
+                //update the item table              
+                let itemTable = document.getElementById("itemTable");
+                //delete all rows except the th
+                for(var i = 1; i<itemTable.rows.length;){
+                    itemTable.deleteRow(i);
+                }
+                //update the item table
+                let totalPrice = 0;
+                for (let index = 0; index < itemInCart.length; index++) {
+                    
+                    let row = itemTable.insertRow(-1);              
+                     
+                    row.insertCell(0).innerText = items.find(item => item.id == itemInCart[index].id).title;
+                    row.insertCell(1).innerHTML = itemInCart[index].quantity;
+                    row.insertCell(2).innerHTML = itemInCart[index].quantity * items.find(item => item.id == itemInCart[index].id).price;
+                    row.insertCell(3).innerHTML = '<button onclick="removeItem(' + itemInCart[index].id + ')">REMOVE</button>'; 
+
+                    //update totalPrice 
+                    totalPrice += itemInCart[index].quantity * items.find(item => item.id == itemInCart[index].id).price;
+                }
+                //--------------------  
+                //update totalPrice
+                document.getElementById("totalPrice").innerHTML = totalPrice;
+            }
+
+            //------------------------------------------------------
+            //ADD ITEM TO CART
+            function addToCart(id) {              
+                
+                let alreadyExist = false;
+                for (let index = 0; index < itemInCart.length; index++) {
+                    if (itemInCart[index].id == id) {
+                        itemInCart[index].quantity = itemInCart[index].quantity + 1;
+                        alreadyExist = true;
+                    }
+                }
+                if (!alreadyExist) {
+                    itemInCart.push({id: id, quantity: 1});
+                }
+                //display updated itemInCart
+                displayCart()             
+            }
+
+            //------------------------------------------------------
+            //removeItem function 
+            function removeItem(itemID) {                 
+                //remove item from the itemInCart
+                itemInCart = itemInCart.reduce((updatedItems, item) => {
+                    if (item.id !== itemID) {
+                        updatedItems.push(item);
+                    }
+                    return updatedItems;
+                }, []);
+                //display updated itemInCart
+                displayCart()  
+            }
+        </script>
+
+    </main>
+
+    <!-- footer area -->
+    <footer>
+        <p><strong>FOOTY KITS</strong></p>
+    <br>
+        <p>Phone: <a href="tel:+64 2209304">+64 2209304</a></p>
+        <p>Email: <a href="mailto:footykits@gmail.com">footykits@gmail.com</a></p>
+
+    </footer>
+
+</body>
+</html>

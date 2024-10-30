@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="itempage.css">
+    <title>Item Page</title>
+</head>
+
+<body>
+    <!--Navigation bar--> 
+    <nav>
+        <div class="sandwich-icon-area" onclick="openNav()">
+            &#9776;
+        </div>
+    
+        <h7><strong>ITEM DETAILS</strong> </h7>
+    </nav>
+
+    <!--Curtain dropdown menu-->
+    <div id="myNav" class="overlay">
+        <span class="close-icon" onclick="closeNav()">&times;</span>
+         <div class="overlay-content">
+            <a href="index.html">HOME</a>
+            <a href="LaLiga.html">LALIGA</a>
+            <a href="Prem.html">PREM</a>
+            <a href="Bundesliga.html">BUNDESLIGA</a>
+            <a href="International.html">INTERNATIONAL</a>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script>
+        // Open the overlay menu with 80% width
+        function openNav() {
+            document.getElementById("myNav").style.width = "80%"; // Set the width to 80%
+        }
+    
+        // Close the overlay menu
+        function closeNav() {
+            document.getElementById("myNav").style.width = "0%";
+        }
+    </script>
+    <main>
+        <!-- Item Detail Section -->
+        <section class="item-detail-section">
+            
+            <div id="itemDetail" class="one-item-card"></div>
+        </section>
+    
+        <script src="Bundesliga.js"></script>
+        
+        <script>
+            //Display the details of selected item
+            let itemID = localStorage.getItem('danielItemID');
+
+            function getAllComments(allComments){
+                let getComments = '';
+                for(let i = 0; i < allComments.length; i++){
+                    getComments += '<p>' + allComments[i].user + ': ' +  allComments[i].comment + '</p>';
+                }
+                return '<div id="commentID" class="comments-section">' + getComments + '</div>';
+            }
+
+            document.getElementById("itemDetail").innerHTML = 
+                '<div class="item-card">' +
+                    '<h4>' + items.find(item => item.id == itemID).title + '</h4>' +
+                    '<p>Year: ' + items.find(item => item.id == itemID).year + '</p>' +
+                    '<img src=' +  items.find(item => item.id == itemID).image_url + ' alt="Item Image" class="item-image">' +
+                    '<h3 class="item-price">Price: $' + items.find(item => item.id == itemID).price + '</h3>' +
+                    '<p class="item-description">Description: ' + items.find(item => item.id == itemID).description + '</p>' +
+                    '<div class="item-rating">' +
+                        '<h4>RATING:</h4>' +
+                        '<button id="likeBtn" class="rating-btn">&#128077;</button>' +
+                        '<p id="likeNumber">' + votes.find(item => item.id == itemID).like + '</p>' +
+                        '<button id="dislikeBtn" class="rating-btn">&#128078;</button>' +
+                        '<p id="dislikeNumber">' + votes.find(item => item.id == itemID).dislike + '</p>' +
+                    '</div>' +
+                    '<h4>COMMENTS:</h4>' + getAllComments(comments.find(item => item.id == itemID).comments) +
+                '</div>';
+        </script>
+
+        <!-- Add New Comment Section -->
+        <section class="comment-section">
+            <h2>Add a New Comment</h2>     
+            <label>Name:</label>
+            <input type="text" id="comment_name" placeholder="Your name" class="comment-input">
+            <br>
+            <br>
+            <label>Comment:</label><br>
+            <textarea id="comment_text" class="comment-textarea"></textarea>
+            <br>
+            <button onclick="addComment()" class="post-comment-btn">POST</button>                      
+        </section>
+        
+        <script>
+            // Add a new comment
+            function addComment() { 
+                let enteredCommentName = document.getElementById("comment_name").value;
+                let enteredCommentText = document.getElementById("comment_text").value;
+
+                if (enteredCommentName.trim() === "" || enteredCommentText.trim() === "") {
+                    alert("Please enter both your name and comment!");
+                } else {
+                    let newComment = document.createElement("p");
+                    newComment.textContent = enteredCommentName + ': ' +  enteredCommentText;
+                    document.getElementById("commentID").appendChild(newComment);
+                    alert("Thank you for your comment!");
+                    document.getElementById("comment_name").value = "";
+                    document.getElementById("comment_text").value = "";
+                }
+            }
+
+            // Voting Logic
+            let currentVotes = { like: votes.find(item => item.id == itemID).like, dislike: votes.find(item => item.id == itemID).dislike };
+            let voteStatus = { like: false, dislike: false };
+
+            document.getElementById("likeBtn").addEventListener("click", function() {
+                if (!voteStatus.like) {
+                    document.getElementById("likeNumber").innerHTML = currentVotes.like + 1;
+                    document.getElementById("likeBtn").style.backgroundColor = "green";
+                    voteStatus.like = true;
+
+                    if (voteStatus.dislike) {
+                        document.getElementById("dislikeNumber").innerHTML = currentVotes.dislike;
+                        voteStatus.dislike = false;
+                        document.getElementById("dislikeBtn").style.backgroundColor = "white";
+                    }
+                } else {
+                    document.getElementById("likeNumber").innerHTML = currentVotes.like;
+                    document.getElementById("likeBtn").style.backgroundColor = "white";
+                    voteStatus.like = false;
+                }
+            });
+
+            document.getElementById("dislikeBtn").addEventListener("click", function() {
+                if (!voteStatus.dislike) {
+                    document.getElementById("dislikeNumber").innerHTML = currentVotes.dislike + 1;
+                    document.getElementById("dislikeBtn").style.backgroundColor = "red";
+                    voteStatus.dislike = true;
+
+                    if (voteStatus.like) {
+                        document.getElementById("likeNumber").innerHTML = currentVotes.like;
+                        voteStatus.like = false;
+                        document.getElementById("likeBtn").style.backgroundColor = "white";
+                    }
+                } else {
+                    document.getElementById("dislikeNumber").innerHTML = currentVotes.dislike;
+                    document.getElementById("dislikeBtn").style.backgroundColor = "white";
+                    voteStatus.dislike = false;
+                }
+            });
+        </script>
+    </main>
+    
+    <script>
+        // Open the overlay menu with 80% width
+        function openNav() {
+            document.getElementById("myNav").style.width = "80%"; // Set the width to 80%
+        }
+    
+        // Close the overlay menu
+        function closeNav() {
+            document.getElementById("myNav").style.width = "0%";
+        }
+    </script>
+    
+
+    <!--Footer-->
+    <footer> 
+        <p>FOOTY KITS </p> 
+    </footer>
+</body>
+</html>
+
+        
+    
